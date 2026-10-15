@@ -1,0 +1,4 @@
+com\queuecare\dto\DSAStateResponse.class
+com\queuecare\dto\DSAStateResponse$HeapNode.class
+com\queuecare\dto\DSAStateResponse$FifoNode.class
+com\queuecare\dto\DSAStateResponse$Builder.class

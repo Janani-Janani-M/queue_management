@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="QueueCare — Intelligent accessible queue management system connected to MySQL with automated priority assistance triage.">
+  <title>QueueCare | Intelligent Accessible Queue Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     APP SHELL
+══════════════════════════════════════════════════════════ -->
+<div class="app-shell" id="appShell">
+
+  <!-- ── SIDEBAR ─────────────────────────────────────────── -->
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+
+    <!-- Brand -->
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">QueueCare</span>
+        <span class="brand-tagline">Access for everyone</span>
+      </div>
+    </div>
+
+    <!-- Connection Status Banner -->
+    <div class="connection-banner" id="connectionBanner">
+      <span class="conn-dot" id="connDot"></span>
+      <span id="connStatus">Connecting to backend…</span>
+    </div>
+
+    <!-- Nav label -->
+    <p class="nav-section-label">WORKSPACE</p>
+
+    <nav class="nav-menu">
+      <a href="#sec-overview" class="nav-item active" id="nav-overview" data-section="overview">
+        <span class="nav-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </span>
+        Overview
+      </a>
+
+      <a href="#sec-register" class="nav-item" id="nav-register" data-section="register">
+        <span class="nav-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        </span>
+        Register Citizen
+      </a>
+
+      <a href="#sec-queue" class="nav-item" id="nav-queue" data-section="queue">
+        <span class="nav-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        </span>
+        Waiting Queue
+        <span class="nav-badge" id="navQueueBadge">0</span>
+      </a>
+
+      <a href="#sec-display" class="nav-item" id="nav-display" data-section="display">
+        <span class="nav-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </span>
+        Token Display
+        <span class="nav-badge live-dot-badge">LIVE</span>
+      </a>
+
+      <a href="#sec-portal" class="nav-item" id="nav-portal" data-section="portal">
+        <span class="nav-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+            <line x1="2" y1="10" x2="22" y2="10"></line>
+            <line x1="7" y1="15" x2="7.01" y2="15"></line>
+            <line x1="12" y1="15" x2="17" y2="15"></line>
+          </svg>
+        </span>
+        View My Ticket
+      </a>
+
+      <a href="#sec-analytics" class="nav-item" id="nav-analytics" data-section="analytics">
+        <span class="nav-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </span>
+        Analytics
+      </a>
+    </nav>
+
+    <!-- Sidebar footer -->
+    <div class="sidebar-footer">
+      <div class="access-callout">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        <span>Priority queue for seniors &amp; citizens with accessibility needs</span>
+      </div>
+      <div class="staff-card">
+        <div class="staff-avatar">AD</div>
+        <div class="staff-info">
+          <span class="staff-name">Service Admin</span>
+          <span class="staff-role">Counter 1 Desk · Active</span>
+        </div>
+        <span class="online-indicator" aria-label="Online"></span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── MAIN CONTENT ──────────────────────────────────────── -->
+  <main class="main-content">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-btn" id="menuToggle" type="button" aria-label="Toggle sidebar" aria-expanded="false" aria-controls="sidebar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="page-heading">
+          <p class="page-eyebrow" id="pageEyebrow">
+            <span class="eyebrow-dot"></span>
+            PUBLIC SERVICE CENTER · SYSTEM ONLINE
+          </p>
+          <h1 class="page-title" id="pageTitle">Queue Overview</h1>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="date-chip" id="currentDate">—</div>
+        <button class="btn btn-ghost" id="audioToggleBtn" type="button" title="Toggle Audio Announcements">
+          <svg id="audioIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+          <span id="audioToggleText">Audio On</span>
+        </button>
+        <button class="btn btn-ghost" id="refreshBtn" type="button" title="Refresh data from server">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          Refresh
+        </button>
+        <button class="btn btn-outline-primary" id="resetBtn" type="button" title="Restore demo queue in MySQL">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3"/></svg>
+          Reset Demo
+        </button>
+      </div>
+    </header>
+
+    <!-- ──────────────────────────────────────────────────────
+         SECTION 1: OVERVIEW
+    ────────────────────────────────────────────────────────── -->
+    <section class="page-section active" id="sec-overview">
+
+      <!-- Welcome row -->
+      <div class="welcome-row">
+        <div class="welcome-text">
+          <h2 class="welcome-title">Good day, Service Team <span class="sparkle">✦</span></h2>
+          <p class="welcome-sub">Live queue management powered by Priority Assistance algorithms and MySQL database persistence.</p>
+        </div>
+        <div class="service-filter-wrap">
+          <label for="serviceFilter" class="filter-label">FILTER BY SERVICE</label>
+          <select id="serviceFilter" class="select-control">
+            <option value="all">All service areas</option>
+            <option value="General Services">General Services</option>
+            <option value="Document Services">Document Services</option>
+            <option value="Accessibility Support">Accessibility Support</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Stats grid -->
+      <div class="stats-grid" aria-label="Queue statistics">
+
+        <article class="stat-card" id="card-waiting">
+          <div class="stat-header">
+            <span class="stat-label">People Waiting</span>
+            <span class="stat-icon-wrap blue">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            </span>
+          </div>
+          <div class="stat-value" id="waitingCount">—</div>
+          <div class="stat-footer">
+            <span class="s-dot blue"></span>
+            Currently in queue
+          </div>
+        </article>
+
+        <article class="stat-card" id="card-priority">
+          <div class="stat-header">
+            <span class="stat-label">Priority Citizens</span>
+            <span class="stat-icon-wrap purple">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </span>
+          </div>
+          <div class="stat-value" id="priorityCount">—</div>
+          <div class="stat-footer">Elderly &amp; accessibility needs</div>
+        </article>
+
+        <article class="stat-card" id="card-served">
+          <div class="stat-header">
+            <span class="stat-label">Served Today</span>
+            <span class="stat-icon-wrap green">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+          </div>
+          <div class="stat-value" id="servedCount">—</div>
+          <div class="stat-footer">
+            <span class="s-dot green"></span>
+            Completed visits
+          </div>
+        </article>
+
+        <article class="stat-card" id="card-wait">
+          <div class="stat-header">
+            <span class="stat-label">Avg. Wait Time</span>
+            <span class="stat-icon-wrap amber">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </span>
+          </div>
+          <div class="stat-value"><span id="averageWait">—</span> <small>min</small></div>
+          <div class="stat-footer">For citizens currently waiting</div>
+        </article>
+
+      </div>
+
+      <!-- Dashboard grid: Active desk callout + Quick registration -->
+      <div class="dashboard-grid">
+
+        <!-- Live Token Desk Callout -->
+        <article class="panel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-eyebrow">COUNTER DESK</p>
+              <h3 class="panel-title">Active Service Station</h3>
+            </div>
+            <span class="live-badge">
+              <span class="pulse-dot"></span>
+              COUNTER 01 ACTIVE
+            </span>
+          </div>
+
+          <div class="token-stage">
+            <p class="token-caption">NOW SERVING</p>
+            <div class="token-number" id="currentToken">— — —</div>
+            <div class="token-counter">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/></svg>
+              Assigned to <strong id="currentCounter">Counter 1</strong>
+            </div>
+          </div>
+
+          <div class="next-up-row">
+            <div class="next-up-label">
+              <span class="nu-eyebrow">UP NEXT IN PRIORITY QUEUE</span>
+              <strong id="nextToken" class="nu-token">No one waiting</strong>
+            </div>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+
+          <div class="action-row">
+            <button class="btn btn-primary" id="callNext" type="button">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 17z"/><polyline points="18 2 22 2 22 6"/><line x1="15" y1="5" x2="22" y2="2"/></svg>
+              Call Next Citizen
+            </button>
+            <button class="btn btn-success" id="markServed" type="button" disabled>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Mark Served
+            </button>
+          </div>
+
+          <p class="live-message" id="liveMessage" role="status" aria-live="polite">
+            Ready to call citizens from priority queue.
+          </p>
+        </article>
+
+        <!-- Quick Desk Registration -->
+        <article class="panel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-eyebrow">FAST TOKEN</p>
+              <h3 class="panel-title">Quick Citizen Registration</h3>
+            </div>
+            <a href="#sec-register" class="btn btn-ghost btn-sm" onclick="navigateTo('register', 'Register Citizen')">
+              Full Desk →
+            </a>
+          </div>
+
+          <form id="quickRegistrationForm" novalidate>
+            <div class="form-field">
+              <label for="quickCitizenName" class="field-label">
+                Citizen Full Name <span class="required-star" aria-hidden="true">*</span>
+              </label>
+              <input
+                id="quickCitizenName"
+                name="citizenName"
+                type="text"
+                class="field-input"
+                maxlength="60"
+                placeholder="e.g. Ramesh Patel"
+                autocomplete="off"
+                required>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label for="quickServiceType" class="field-label">Service Area</label>
+                <select id="quickServiceType" name="serviceType" class="field-input">
+                  <option value="General Services">General Services</option>
+                  <option value="Document Services">Document Services</option>
+                  <option value="Accessibility Support">Accessibility Support</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="quickAssistance" class="field-label">Queue Category</label>
+                <select id="quickAssistance" name="assistance" class="field-input">
+                  <option value="Standard">Standard Queue</option>
+                  <option value="Priority Assistance">Priority Assistance (Elderly/PWD)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="quick-register-actions">
+              <button class="btn btn-primary btn-full" type="submit" id="quickSubmitBtn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                Issue Quick Token
+              </button>
+            </div>
+          </form>
+
+          <div class="quick-desk-info">
+            <span class="s-dot green"></span>
+            <span>Automatically saves to MySQL with calculated wait time.</span>
+          </div>
+        </article>
+
+      </div><!-- /dashboard-grid -->
+
+      <!-- Overview Queue Preview -->
+      <article class="panel queue-preview-panel">
+        <div class="panel-header">
+          <div>
+            <p class="panel-eyebrow">UPCOMING CITIZENS</p>
+            <h3 class="panel-title">Active Queue Preview</h3>
+          </div>
+          <button class="btn btn-ghost btn-sm" onclick="navigateTo('queue', 'Waiting Queue')">
+            View All in Queue →
+          </button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="queue-table">
+            <thead>
+              <tr>
+                <th scope="col">TOKEN</th>
+                <th scope="col">CITIZEN</th>
+                <th scope="col">SERVICE</th>
+                <th scope="col">CATEGORY</th>
+                <th scope="col">EST. WAIT</th>
+                <th scope="col">STATUS</th>
+                <th scope="col">ACTION</th>
+              </tr>
+            </thead>
+            <tbody id="overviewQueueBody">
+              <!-- Dynamically rendered preview rows -->
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+    </section><!-- /sec-overview -->
+
+    <!-- ──────────────────────────────────────────────────────
+         SECTION 2: REGISTER CITIZEN DESK (Dedicated Page)
+    ────────────────────────────────────────────────────────── -->
+    <section class="page-section" id="sec-register">
+
+      <div class="section-heading">
+        <div>
+          <p class="panel-eyebrow">SERVICE DESK · TOKEN ISSUANCE</p>
+          <h2 class="panel-title">Register Citizen</h2>
+        </div>
+        <div class="desk-indicator-badge">
+          <span class="pulse-dot"></span>
+          Intake Desk Online · MySQL Connected
+        </div>
+      </div>
+
+      <div class="register-layout-grid">
+
+        <!-- Main Registration Form Card -->
+        <article class="panel register-main-card">
+          <div class="panel-header">
+            <div>
+              <p class="panel-eyebrow">CITIZEN INFORMATION</p>
+              <h3 class="panel-title">Visitor Registration &amp; Intake</h3>
+            </div>
+            <span class="register-icon-wrap">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            </span>
+          </div>
+
+          <form id="registrationForm" novalidate>
+
+            <!-- Full Name -->
+            <div class="form-field">
+              <label for="citizenName" class="field-label">
+                Citizen Full Name <span class="required-star" aria-hidden="true">*</span>
+              </label>
+              <input
+                id="citizenName"
+                name="citizenName"
+                type="text"
+                class="field-input"
+                maxlength="60"
+                placeholder="Enter full legal name (e.g. Kamala Devi)"
+                autocomplete="off"
+                required>
+              <span class="field-error" id="nameError" role="alert" hidden></span>
+            </div>
+
+            <!-- Phone & Age row -->
+            <div class="form-row">
+              <div class="form-field">
+                <label for="citizenPhone" class="field-label">Phone Number (Optional)</label>
+                <input
+                  id="citizenPhone"
+                  name="citizenPhone"
+                  type="tel"
+                  class="field-input"
+                  placeholder="e.g. +91 98765 43210"
+                  autocomplete="tel">
+              </div>
+              <div class="form-field">
+                <label for="citizenAge" class="field-label">
+                  Citizen Age (Years)
+                  <span class="age-badge" id="ageBadge" hidden>Senior Citizen Eligible</span>
+                </label>
+                <input
+                  id="citizenAge"
+                  name="citizenAge"
+                  type="number"
+                  min="1"
+                  max="120"
+                  class="field-input"
+                  placeholder="e.g. 68">
+              </div>
+            </div>
+
+            <!-- Service & Category row -->
+            <div class="form-row">
+              <div class="form-field">
+                <label for="serviceType" class="field-label">Service Area Required</label>
+                <select id="serviceType" name="serviceType" class="field-input">
+                  <option value="General Services">General Services (Billing, Inquiries)</option>
+                  <option value="Document Services" selected>Document Services (Certificates, Passports)</option>
+                  <option value="Accessibility Support">Accessibility Support (Welfare, Mobility)</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label for="assistance" class="field-label">Queue Priority Classification</label>
+                <select id="assistance" name="assistance" class="field-input">
+                  <option value="Standard">Standard Queue (FIFO Lane)</option>
+                  <option value="Priority Assistance">Priority Assistance (Binary Min-Heap)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Accessibility & Special Needs Checkboxes -->
+            <div class="accessibility-checklist">
+              <p class="checklist-title">Accessibility &amp; Special Assistance Options</p>
+              <div class="check-grid">
+                <label class="check-card">
+                  <input type="checkbox" id="checkWheelchair" class="custom-checkbox">
+                  <span class="check-text">Wheelchair / Mobility Assistance</span>
+                </label>
+                <label class="check-card">
+                  <input type="checkbox" id="checkSenior" class="custom-checkbox">
+                  <span class="check-text">Senior Citizen (60+ Years)</span>
+                </label>
+                <label class="check-card">
+                  <input type="checkbox" id="checkHearing" class="custom-checkbox">
+                  <span class="check-text">Hearing / Visual Support</span>
+                </label>
+                <label class="check-card">
+                  <input type="checkbox" id="checkMedical" class="custom-checkbox">
+                  <span class="check-text">Expectant Mother / Medical Care</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Purpose Notes -->
+            <div class="form-field">
+              <label for="citizenNotes" class="field-label">Desk Notes / Remarks (Optional)</label>
+              <input
+                id="citizenNotes"
+                name="citizenNotes"
+                type="text"
+                class="field-input"
+                placeholder="e.g. Certificate renewal verification">
+            </div>
+
+            <!-- Submit Button -->
+            <button class="btn btn-primary btn-full btn-lg" type="submit" id="submitBtn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+              Issue Official Token Slip
+            </button>
+          </form>
+
+          <!-- Result feedback container -->
+          <div class="registration-result" id="registrationResult" role="status" aria-live="polite" hidden></div>
+        </article>
+
+        <!-- Right Side: Real-time Triage & Wait Intelligence -->
+        <aside class="register-sidebar-col">
+
+          <!-- Live Estimated Wait Card -->
+          <article class="panel wait-estimator-card">
+            <div class="panel-header">
+              <div>
+                <p class="panel-eyebrow">LIVE CALCULATION</p>
+                <h3 class="panel-title">Estimated Wait Time</h3>
+              </div>
+              <span class="calc-pulse-icon">⚡</span>
+            </div>
+
+            <div class="estimator-hero">
+              <div class="est-minutes" id="estWaitDisplay">~10 <small>mins</small></div>
+              <p class="est-caption" id="estWaitCaption">Calculated for Priority Assistance queue position.</p>
+            </div>
+
+            <div class="est-factors">
+              <div class="factor-row">
+                <span class="factor-label">Current Queue Depth</span>
+                <strong id="estQueueDepth" class="factor-val">4 citizens</strong>
+              </div>
+              <div class="factor-row">
+                <span class="factor-label">Priority Ahead</span>
+                <strong id="estPriorityAhead" class="factor-val purple-text">2 citizens</strong>
+              </div>
+              <div class="factor-row">
+                <span class="factor-label">Average Desk Time</span>
+                <strong class="factor-val">5 min / citizen</strong>
+              </div>
+              <div class="factor-row">
+                <span class="factor-label">Target Desk</span>
+                <strong class="factor-val green-text">Counter 01</strong>
+              </div>
+            </div>
+          </article>
+
+          <!-- Public Service Priority Charter -->
+          <article class="panel charter-card">
+            <div class="charter-header">
+              <div class="charter-badge">ACCESSIBLE PUBLIC SERVICE</div>
+              <h4>Priority Assistance Standard</h4>
+            </div>
+            <p class="charter-body">
+              Citizens with accessibility requirements, elderly patrons, and expectant mothers are scheduled with highest priority.
+              QueueCare balances fast turnaround with dignity and fairness for all citizens.
+            </p>
+            <ul class="charter-points">
+              <li>✓ Immediate placement in Priority Assistance heap</li>
+              <li>✓ Voice announcement at token call</li>
+              <li>✓ Dedicated ground-floor accessible counter</li>
+            </ul>
+          </article>
+
+        </aside>
+
+      </div><!-- /register-layout-grid -->
+
+    </section><!-- /sec-register -->
+
+    <!-- ──────────────────────────────────────────────────────
+         SECTION 3: WAITING QUEUE (Dedicated Page)
+    ────────────────────────────────────────────────────────── -->
+    <section class="page-section" id="sec-queue">
+
+      <div class="section-heading">
+        <div>
+          <p class="panel-eyebrow">QUEUE MANAGEMENT</p>
+          <h2 class="panel-title">
+            Waiting Queue
+            <span class="count-chip" id="queueBadge">0</span>
+          </h2>
+        </div>
+        <div class="queue-toolbar">
+          <label class="search-wrap" for="searchInput">
+            <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input id="searchInput" type="search" class="search-input" placeholder="Search token or name…" aria-label="Search token or citizen name">
+          </label>
+          <button class="btn btn-ghost" id="exportCsv" type="button">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export CSV
+          </button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="queue-table" id="queueTable">
+          <thead>
+            <tr>
+              <th scope="col">TOKEN</th>
+              <th scope="col">CITIZEN</th>
+              <th scope="col">SERVICE</th>
+              <th scope="col">CATEGORY</th>
+              <th scope="col">WAIT (MIN)</th>
+              <th scope="col">STATUS</th>
+              <th scope="col">ACTION</th>
+            </tr>
+          </thead>
+          <tbody id="queueBody">
+          </tbody>
+        </table>
+
+        <div class="empty-state" id="emptyState" hidden>
+          <div class="empty-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          </div>
+          <strong>No citizens currently in the waiting queue</strong>
+          <p>Register a citizen or reset the demo queue to get started.</p>
+        </div>
+      </div>
+
+      <div class="table-footer">
+        <span id="tableSummary" class="table-summary-text">Showing 0 citizens</span>
+        <span class="footer-live">
+          <span class="s-dot green"></span>
+          Auto-synchronized with MySQL every 5 seconds
+        </span>
+      </div>
+
+    </section><!-- /sec-queue -->
+
+    <!-- ──────────────────────────────────────────────────────
+         SECTION 4: TOKEN DISPLAY BOARD (Dedicated Page)
+    ────────────────────────────────────────────────────────── -->
+    <section class="page-section" id="sec-display">
+
+      <!-- Display Signage Topbar -->
+      <div class="display-signage-topbar">
+        <div>
+          <p class="panel-eyebrow">DIGITAL SIGNAGE · BROADCAST DISPLAY</p>
+          <h2 class="panel-title">Now Serving Board</h2>
+        </div>
+        <div class="display-controls">
+          <button class="btn btn-ghost" id="displayChimeBtn" type="button" title="Play audio chime and speak">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+            Announce Current
+          </button>
+          <button class="btn btn-outline-primary" id="fullscreenToggleBtn" type="button" title="Toggle Kiosk Fullscreen">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+            Fullscreen Board
+          </button>
+        </div>
+      </div>
+
+      <!-- Main High-Contrast Hero Board -->
+      <div class="signage-hero-board">
+
+        <div class="signage-header-row">
+          <div class="broadcast-pill">
+            <span class="pulse-dot"></span>
+            LIVE BROADCAST SCREEN
+          </div>
+          <div class="signage-clock" id="signageClock">12:00:00 PM</div>
+        </div>
+
+        <div class="signage-main-content">
+          <div class="signage-calling-badge">NOW CALLING</div>
+          <div class="signage-token-number" id="displayCurrentToken">— — —</div>
+          <div class="signage-counter-badge" id="displayCounterBadge">COUNTER 01</div>
+          <div class="signage-citizen-name" id="displayCitizenName">Awaiting Next Citizen Call</div>
+          <div class="signage-instruction" id="displayInstruction">Please proceed to the designated service counter when your token is called.</div>
+        </div>
+
+        <!-- Audio Waveform Visualizer -->
+        <div class="audio-waveform-bar" aria-hidden="true">
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+        </div>
+      </div>
+
+      <!-- Multi-Counter Status Grid -->
+      <div class="multi-counter-grid">
+
+        <article class="counter-status-card active">
+          <div class="csc-header">
+            <span class="csc-title">COUNTER 01</span>
+            <span class="csc-badge active">SERVING</span>
+          </div>
+          <div class="csc-token" id="counter1Token">—</div>
+          <div class="csc-meta" id="counter1Meta">General &amp; Fast-Track Intake</div>
+        </article>
+
+        <article class="counter-status-card available">
+          <div class="csc-header">
+            <span class="csc-title">COUNTER 02</span>
+            <span class="csc-badge available">AVAILABLE</span>
+          </div>
+          <div class="csc-token">OPEN</div>
+          <div class="csc-meta">Document Processing Desk</div>
+        </article>
+
+        <article class="counter-status-card priority-desk">
+          <div class="csc-header">
+            <span class="csc-title">COUNTER 03</span>
+            <span class="csc-badge priority">PRIORITY CARE</span>
+          </div>
+          <div class="csc-token" id="counter3Token">ACTIVE</div>
+          <div class="csc-meta">Wheelchair &amp; Senior Assistance</div>
+        </article>
+
+      </div>
+
+      <!-- Upcoming Ticker & Recent Log Grid -->
+      <div class="display-sub-grid">
+
+        <!-- Upcoming Citizens Ticker -->
+        <article class="panel up-next-board">
+          <div class="panel-header">
+            <div>
+              <p class="panel-eyebrow">UP NEXT IN QUEUE</p>
+              <h3 class="panel-title">Upcoming Tokens</h3>
+            </div>
+            <span class="count-chip" id="displayQueueBadge">0</span>
+          </div>
+
+          <div class="up-next-cards-container" id="displayUpNextList">
+            <!-- Dynamically populated next citizens -->
+          </div>
+        </article>
+
+        <!-- Recently Served Citizens Log -->
+        <article class="panel recently-served-board">
+          <div class="panel-header">
+            <div>
+              <p class="panel-eyebrow">COMPLETED CALLS</p>
+              <h3 class="panel-title">Recently Served</h3>
+            </div>
+          </div>
+
+          <div class="recently-served-list" id="displayServedList">
+            <!-- Dynamically populated completed tokens -->
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Quick Operator Controls right on the display page -->
+      <div class="display-operator-bar">
+        <span class="op-label">DESK CONTROLS:</span>
+        <button class="btn btn-primary" id="displayCallNextBtn" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 17z"/></svg>
+          Call Next Citizen
+        </button>
+        <button class="btn btn-success" id="displayMarkServedBtn" type="button" disabled>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Mark Current as Served
+        </button>
+      </div>
+
+    </section><!-- /sec-display -->
+
+    <!-- ──────────────────────────────────────────────────────
+         SECTION 5: CITIZEN PORTAL (View My Ticket)
+    ────────────────────────────────────────────────────────── -->
+    <section class="page-section" id="sec-portal">
+
+      <div class="section-heading">
+        <div>
+          <p class="panel-eyebrow">CITIZEN SELF-SERVICE · LIVE TRACKER</p>
+          <h2 class="panel-title">View My Ticket</h2>
+        </div>
+        <div class="portal-badge-wrap">
+          <span class="s-dot green"></span>
+          <span>Live Queue Tracking Active</span>
+        </div>
+      </div>
+
+      <!-- Search / Token Input Card -->
+      <article class="panel portal-search-card">
+        <div class="portal-search-header">
+          <div>
+            <h3 class="panel-title">Track Your Token Status</h3>
+            <p class="panel-helper" style="margin-top:2px;">Enter the token number issued at registration to view live queue position, wait estimate, and download your ticket pass.</p>
+          </div>
+        </div>
+
+        <form id="portalSearchForm" class="portal-search-form" novalidate>
+          <div class="portal-input-wrap">
+            <svg class="portal-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <line x1="2" y1="10" x2="22" y2="10"></line>
+            </svg>
+            <input
+              type="text"
+              id="portalTokenInput"
+              class="portal-token-input"
+              placeholder="Enter your Token Number (e.g. Q101, Q105)"
+              autocomplete="off"
+              maxlength="10"
+              required>
+            <button class="btn btn-primary btn-lg" type="submit" id="portalSearchBtn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              Find My Ticket
+            </button>
+          </div>
+        </form>
+
+        <!-- Quick Demo Chips for easy one-click testing -->
+        <div class="quick-token-chips-bar">
+          <span class="qt-label">Quick check active tokens:</span>
+          <div class="qt-chips" id="portalQuickChips">
+            <!-- Dynamically populated or default chips like Q101, Q102, Q104, Q105 -->
+          </div>
+        </div>
+      </article>
+
+      <!-- Ticket Display Container (Hidden until token entered or loaded) -->
+      <div class="portal-ticket-container" id="portalResultContainer" hidden>
+
+        <!-- Live Status Alert Box -->
+        <div class="portal-status-alert waiting" id="portalStatusBanner">
+          <div class="psa-icon" id="psaIcon">●</div>
+          <div class="psa-content">
+            <h4 id="portalStatusTitle">In Queue · Position #2</h4>
+            <p id="portalStatusDesc">Your ticket is currently in the active waiting queue. Please remain nearby the counter area.</p>
+          </div>
+          <div class="psa-wait-pill" id="portalWaitPill">~10 mins</div>
+        </div>
+
+        <!-- The Perforated Pass Card -->
+        <div class="portal-pass-card" id="portalPassCard">
+          <div class="pass-card-header">
+            <div class="pass-brand">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <span>QueueCare · Official Digital Pass</span>
+            </div>
+            <span class="pass-priority-pill" id="portalPassCategory">PRIORITY ASSISTANCE</span>
+          </div>
+
+          <div class="pass-token-section">
+            <span class="pass-token-caption">YOUR TOKEN NUMBER</span>
+            <div class="pass-token-number" id="portalPassToken">Q105</div>
+            <div class="pass-counter-callout" id="portalPassCounter">Assigned to Counter 01 (Intake Desk)</div>
+          </div>
+
+          <div class="pass-perforated-notch">
+            <span class="notch left"></span>
+            <span class="notch-line"></span>
+            <span class="notch right"></span>
+          </div>
+
+          <div class="pass-body-grid">
+            <div class="pass-details-col">
+              <div class="pass-detail-group">
+                <span class="pd-label">CITIZEN NAME</span>
+                <strong class="pd-value" id="portalPassName">—</strong>
+              </div>
+              <div class="pass-detail-group">
+                <span class="pd-label">SERVICE AREA</span>
+                <strong class="pd-value" id="portalPassService">—</strong>
+              </div>
+              <div class="pass-detail-group">
+                <span class="pd-label">CURRENT STATUS</span>
+                <strong class="pd-value" id="portalPassStatus">Waiting</strong>
+              </div>
+              <div class="pass-detail-group">
+                <span class="pd-label">ESTIMATED WAIT</span>
+                <strong class="pd-value green-text" id="portalPassWait">~10 minutes</strong>
+              </div>
+            </div>
+
+            <!-- QR Code Section -->
+            <div class="pass-qr-col">
+              <div class="qr-code-box" id="portalQrCodeBox">
+                <!-- Dynamically generated crisp QR code SVG/Canvas -->
+              </div>
+              <span class="qr-caption">Scan at Service Counter</span>
+            </div>
+          </div>
+
+          <div class="pass-footer-notice">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <span>Please present this pass on your mobile device or printed slip when your token is announced.</span>
+          </div>
+        </div>
+
+        <!-- Portal Actions Bar: Download Ticket, Print, Share -->
+        <div class="portal-actions-bar">
+          <button class="btn btn-primary btn-lg" id="downloadTicketBtn" type="button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download Ticket (PNG Image)
+          </button>
+          <button class="btn btn-ghost btn-lg" id="printPortalTicketBtn" type="button">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 6 2 18 2 18 9"></polyline>
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+              <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+            Print Slip
+          </button>
+          <button class="btn btn-ghost btn-lg" id="copyTokenCodeBtn" type="button">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            Copy Token
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Welcome / Empty Prompt State -->
+      <article class="panel portal-welcome-state" id="portalEmptyPrompt">
+        <div class="empty-icon" style="width:72px;height:72px;">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+            <line x1="2" y1="10" x2="22" y2="10"></line>
+            <line x1="7" y1="15" x2="7.01" y2="15"></line>
+            <line x1="12" y1="15" x2="17" y2="15"></line>
+          </svg>
+        </div>
+        <h3 style="font-size:16px;font-weight:800;color:var(--ink);">Ready to View Your Ticket</h3>
+        <p style="font-size:13px;color:var(--muted);max-width:400px;text-align:center;line-height:1.5;">
+          Enter your token number above to track your position in line, view desk assignment, and download your digital ticket pass with QR code.
+        </p>
+      </article>
+
+    </section><!-- /sec-portal -->
+
+    <!-- ──────────────────────────────────────────────────────
+         SECTION 5: ANALYTICS (Dedicated Page)
+    ────────────────────────────────────────────────────────── -->
+    <section class="page-section" id="sec-analytics">
+
+      <div class="section-heading">
+        <div>
+          <p class="panel-eyebrow">SERVICE PERFORMANCE</p>
+          <h2 class="panel-title">Today's Analytics</h2>
+        </div>
+      </div>
+
+      <div class="analytics-grid">
+
+        <!-- Activity chart -->
+        <article class="panel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-eyebrow">THROUGHPUT</p>
+              <h3 class="panel-title">Queue Activity</h3>
+            </div>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+
+          <div class="bar-chart">
+            <div class="bar-row">
+              <span class="bar-label">Served</span>
+              <div class="bar-track">
+                <div class="bar-fill green" id="servedBar" style="width:0%"></div>
+              </div>
+              <strong id="servedBarVal" class="bar-val">0</strong>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Waiting</span>
+              <div class="bar-track">
+                <div class="bar-fill blue" id="waitingBar" style="width:0%"></div>
+              </div>
+              <strong id="waitingBarVal" class="bar-val">0</strong>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Priority</span>
+              <div class="bar-track">
+                <div class="bar-fill purple" id="priorityBar" style="width:0%"></div>
+              </div>
+              <strong id="priorityBarVal" class="bar-val">0</strong>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Skipped</span>
+              <div class="bar-track">
+                <div class="bar-fill amber" id="skippedBar" style="width:0%"></div>
+              </div>
+              <strong id="skippedBarVal" class="bar-val">0</strong>
+            </div>
+          </div>
+
+          <p class="panel-helper">Bars show real-time citizen counts persisted in MySQL database.</p>
+        </article>
+
+        <!-- Principles -->
+        <article class="panel principles-panel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-eyebrow">OUR COMMITMENT</p>
+              <h3 class="panel-title">Service with Dignity</h3>
+            </div>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+
+          <div class="principle-list">
+            <div class="principle-item">
+              <span class="principle-check green">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <div>
+                <strong>Fair Priority Scheduling</strong>
+                <p>Priority Assistance → Longest Wait Time → Earliest Arrival. Transparent, automated, and fair for every citizen.</p>
+              </div>
+            </div>
+            <div class="principle-item">
+              <span class="principle-check blue">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <div>
+                <strong>Accessible Experience</strong>
+                <p>High-contrast digital signage, voice announcements, keyboard navigation, and dedicated accessibility intake.</p>
+              </div>
+            </div>
+            <div class="principle-item">
+              <span class="principle-check purple">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <div>
+                <strong>Reliable MySQL Storage</strong>
+                <p>All token transactions and completed visits are safely persisted in MySQL via parameterized Spring Data JPA.</p>
+              </div>
+            </div>
+            <div class="principle-item">
+              <span class="principle-check amber">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <div>
+                <strong>Real-Time Synchronization</strong>
+                <p>Frontend auto-polls and updates every 5 seconds, ensuring desk operators and citizens have exact synchronized state.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Live stats snapshot -->
+        <article class="panel stats-snapshot">
+          <div class="panel-header">
+            <div>
+              <p class="panel-eyebrow">LIVE SNAPSHOT</p>
+              <h3 class="panel-title">Session Metrics</h3>
+            </div>
+          </div>
+          <div class="snapshot-grid">
+            <div class="snapshot-cell">
+              <span class="snap-label">Total Registered</span>
+              <span class="snap-value" id="snapTotal">—</span>
+            </div>
+            <div class="snapshot-cell">
+              <span class="snap-label">Currently Served</span>
+              <span class="snap-value green-text" id="snapServed">—</span>
+            </div>
+            <div class="snapshot-cell">
+              <span class="snap-label">Still Waiting</span>
+              <span class="snap-value blue-text" id="snapWaiting">—</span>
+            </div>
+            <div class="snapshot-cell">
+              <span class="snap-label">Skipped Today</span>
+              <span class="snap-value amber-text" id="snapSkipped">—</span>
+            </div>
+            <div class="snapshot-cell">
+              <span class="snap-label">Active Token</span>
+              <span class="snap-value mono" id="snapCurrent">—</span>
+            </div>
+            <div class="snapshot-cell">
+              <span class="snap-label">Next Token</span>
+              <span class="snap-value mono" id="snapNext">—</span>
+            </div>
+          </div>
+        </article>
+
+      </div><!-- /analytics-grid -->
+
+    </section><!-- /sec-analytics -->
+
+    <!-- Footer -->
+    <footer class="main-footer">
+      <span>© 2026 QueueCare · Accessible Public Queue Management</span>
+      <span>Connected to MySQL Database · Spring Boot 3 REST API</span>
+    </footer>
+
+  </main><!-- /main-content -->
+
+</div><!-- /app-shell -->
+
+<!-- ── DIGITAL TOKEN SLIP MODAL ────────────────────────────── -->
+<div class="modal-backdrop" id="ticketModal" role="dialog" aria-modal="true" aria-labelledby="modalTicketToken" hidden>
+  <div class="ticket-slip-card">
+    <button class="modal-close-btn" id="modalCloseBtn" type="button" aria-label="Close ticket dialog">✕</button>
+    <div class="ticket-header">
+      <div class="ticket-brand">QueueCare · Public Service Pass</div>
+      <div class="ticket-token" id="modalTicketToken">Q105</div>
+      <div class="ticket-priority-pill" id="modalTicketCategory">PRIORITY ASSISTANCE</div>
+    </div>
+    <div class="ticket-divider"></div>
+    <div class="ticket-details">
+      <div class="ticket-detail-row">
+        <span>Citizen:</span>
+        <strong id="modalTicketName">Kamala Devi</strong>
+      </div>
+      <div class="ticket-detail-row">
+        <span>Service:</span>
+        <strong id="modalTicketService">Document Services</strong>
+      </div>
+      <div class="ticket-detail-row">
+        <span>Assigned Desk:</span>
+        <strong id="modalTicketCounter">Counter 01</strong>
+      </div>
+      <div class="ticket-detail-row">
+        <span>Estimated Wait:</span>
+        <strong id="modalTicketWait">~10 mins</strong>
+      </div>
+      <div class="ticket-detail-row">
+        <span>Issue Time:</span>
+        <span id="modalTicketTime">—</span>
+      </div>
+    </div>
+    <div class="ticket-qr-wrap" aria-hidden="true">
+      <svg width="120" height="120" viewBox="0 0 100 100" fill="currentColor">
+        <rect x="10" y="10" width="24" height="24" fill="#0b1929"/>
+        <rect x="14" y="14" width="16" height="16" fill="#fff"/>
+        <rect x="18" y="18" width="8" height="8" fill="#0b1929"/>
+        <rect x="66" y="10" width="24" height="24" fill="#0b1929"/>
+        <rect x="70" y="14" width="16" height="16" fill="#fff"/>
+        <rect x="74" y="18" width="8" height="8" fill="#0b1929"/>
+        <rect x="10" y="66" width="24" height="24" fill="#0b1929"/>
+        <rect x="14" y="70" width="16" height="16" fill="#fff"/>
+        <rect x="18" y="74" width="8" height="8" fill="#0b1929"/>
+        <rect x="42" y="15" width="6" height="6" fill="#0b1929"/>
+        <rect x="52" y="25" width="6" height="6" fill="#0b1929"/>
+        <rect x="40" y="42" width="20" height="18" fill="#0b1929"/>
+        <rect x="66" y="50" width="12" height="6" fill="#0b1929"/>
+        <rect x="50" y="66" width="8" height="20" fill="#0b1929"/>
+        <rect x="74" y="74" width="16" height="16" fill="#0b1929"/>
+      </svg>
+      <span class="qr-label">Scan at service counter</span>
+    </div>
+    <div class="ticket-actions">
+      <button class="btn btn-primary btn-full" id="printTicketBtn" type="button">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+        Print Token Slip
+      </button>
+      <button class="btn btn-outline-primary btn-full" id="modalGoToPortalBtn" type="button">
+        View &amp; Download in Citizen Portal →
+      </button>
+      <button class="btn btn-ghost btn-full" id="closeTicketModalBtn" type="button">
+        Dismiss &amp; Next
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── TOAST NOTIFICATION ──────────────────────────────────── -->
+<div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+<!-- ── OVERLAY (mobile sidebar) ───────────────────────────── -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- ── SCRIPTS ────────────────────────────────────────────── -->
+<script src="js/app.js"></script>
+</body>
+</html>
